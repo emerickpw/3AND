@@ -52,13 +52,14 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
         final Button myButtonRandom = (Button) findViewById(R.id.buttonRandom);
         myButtonRandom.setOnClickListener(new View.OnClickListener() {
             RandomValue randomValue = new RandomValue();
+
             @Override
             public void onClick(View v) {
                 //lancer la methode random Picture
                 String newImg = randomValue.randomPicture();
                 mImageView.setImageResource(getResources().getIdentifier(newImg, "mipmap", getPackageName()));
                 //up level
-                int newLevel = level +1;
+                int newLevel = level + 1;
                 setLevel(newLevel);
                 setTitle("Find Nicolas - Level " + level);
 
@@ -76,6 +77,11 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
             }
         });
 
+    }
+
+    //Disable the software back button, can't escape the game
+    public void onBackPressed() {
+        //Nothing here, button disabled
     }
 
 
