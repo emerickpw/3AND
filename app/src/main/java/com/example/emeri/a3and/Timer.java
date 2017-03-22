@@ -1,9 +1,7 @@
 package com.example.emeri.a3and;
 
 import android.app.Activity;
-import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Chronometer;
 
 
 public class Timer extends Activity {
@@ -21,7 +19,7 @@ public class Timer extends Activity {
         Log.d("RunTimer","ChronoMod");
 
     }
-
+    //#LOL
     public void RunTimerChronoMod2(){
         Log.d("RunTimer","ChronoMod2");
 
