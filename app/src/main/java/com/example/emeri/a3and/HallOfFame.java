@@ -38,4 +38,11 @@ public class HallOfFame extends AppCompatActivity {
 
 
     }
+
+    //Set the software back button go to the main Activity
+    public void onBackPressed() {
+        Intent intent = new Intent(HallOfFame.this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
