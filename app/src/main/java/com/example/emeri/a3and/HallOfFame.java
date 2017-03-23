@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+// TODO: 23/03/2017 modifier les parties du layout hardcoded, pour utiliser des strings resources et eviter les warnings au commit 
+
 public class HallOfFame extends AppCompatActivity {
 
     @Override
@@ -14,16 +16,6 @@ public class HallOfFame extends AppCompatActivity {
         setContentView(R.layout.hall_of_fame);
         setTitle("Hall Of Fame");
 
-        //Connect The Back button for redirecting to the activity Main activity
-        final Button myButtonBack = (Button) findViewById(R.id.buttonBack);
-        myButtonBack.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HallOfFame.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
         //Connect The NormalHoF button for redirecting to the Normal_HoF activity
         final Button myButtonNormalHoF = (Button) findViewById(R.id.buttonNormalHoF);
@@ -36,10 +28,33 @@ public class HallOfFame extends AppCompatActivity {
             }
         });
 
+        //Connect The ChronHoF1 button for redirecting to the Normal_HoF activity
+        final Button myButtonChronoModHoF = (Button) findViewById(R.id.buttonHoFChrono1);
+        myButtonChronoModHoF.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HallOfFame.this, ChronoModHoF.class);
+                startActivity(intent);
+            }
+        });
+
+        //Connect The ChronHoF2 button for redirecting to the Normal_HoF activity
+        final Button myButtonChronoModHoF2 = (Button) findViewById(R.id.buttonHoFChrono2);
+        myButtonChronoModHoF2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HallOfFame.this, ChronoMod2HoF.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
     //Set the software back button go to the main Activity
+    @Override
     public void onBackPressed() {
         Intent intent = new Intent(HallOfFame.this, MainActivity.class);
         startActivity(intent);

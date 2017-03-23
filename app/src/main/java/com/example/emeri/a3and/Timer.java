@@ -5,7 +5,7 @@ import android.util.Log;
 
 
 public class Timer extends Activity {
-
+    //// TODO: 23/03/2017 Ajouter le timer adequat a chaque mode de jeu dans chaque classe
     public void RunTimerNormal(){
         Interface_Play myInterfacePlay = new Interface_Play();
 

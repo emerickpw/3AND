@@ -21,7 +21,7 @@ public class SaveParty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Save game record
-
+                // TODO: 23/03/2017 mettre en place la connexion a la BDD + sauvegarde de la partie
                 //Launch Save Activity
                 Intent intent = new Intent(SaveParty.this, HallOfFame.class);
                 startActivity(intent);

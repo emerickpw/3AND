@@ -48,16 +48,12 @@ public class StartParty extends AppCompatActivity {
             }
         });
 
-        //Connect The Back button for redirecting to the activity Main activity
-        final Button myButtonBack = (Button) findViewById(R.id.buttonBack);
-        myButtonBack.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartParty.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(StartParty.this, MainActivity.class);
+        startActivity(intent);
     }
 }
