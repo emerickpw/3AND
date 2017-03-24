@@ -1,11 +1,13 @@
 package com.example.emeri.a3and;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 
 public class Interface_Play extends AppCompatActivity {
@@ -44,9 +46,7 @@ public class Interface_Play extends AppCompatActivity {
         mImageView.setImageResource(getResources().getIdentifier(img, "mipmap", getPackageName()));
 
         //Run chronometer
-        Timer timer = new Timer();
-        timer.RunTimerNormal();
-
+        RunTimerNormal();
 
         //Connect The Random button for redirecting to the activity interface_play activity
         final Button myButtonRandom = (Button) findViewById(R.id.buttonRandom);
@@ -55,14 +55,23 @@ public class Interface_Play extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //lancer la methode random Picture
+                //If level <11, lvl up
+                if (getLevel() <11)
+                {
+                    setTitle("Find Nicolas - Level " + level);
+                }
+                //Else if lvl > 11, exit the game
+                else{
+                    Intent intent = new Intent(Interface_Play.this, SaveParty.class);
+                    startActivity(intent);
+                }
+
+                //Display random picture
                 String newImg = randomValue.randomPicture();
                 mImageView.setImageResource(getResources().getIdentifier(newImg, "mipmap", getPackageName()));
                 //up level
                 int newLevel = level + 1;
                 setLevel(newLevel);
-                setTitle("Find Nicolas - Level " + level);
-
             }
         });
 
@@ -83,5 +92,14 @@ public class Interface_Play extends AppCompatActivity {
     public void onBackPressed() {
         //Nothing here, button disabled
     }
+
+    public void RunTimerNormal() {
+        Chronometer focus;
+        focus = (Chronometer) findViewById(R.id.chronoMetre);
+        focus.setBase(SystemClock.elapsedRealtime());
+
+        focus.start();
+    }
+
 
 }

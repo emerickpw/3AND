@@ -29,4 +29,8 @@ public class SaveParty extends AppCompatActivity {
         });
 
     }
-}
+
+    //Disable the software back button, can't escape the game
+    public void onBackPressed() {
+        //Nothing here, button disabled
+    }}

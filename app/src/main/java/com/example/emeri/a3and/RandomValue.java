@@ -36,10 +36,10 @@ public class RandomValue extends AppCompatActivity {
         }
         while (valueRand == previousValue);
 
-        Log.d("Previous Value", String.valueOf(previousValue));
-        Log.d("Current Value", String.valueOf(valueRand));
+        //Log.d("Previous Value", String.valueOf(previousValue));
+        //Log.d("Current Value", String.valueOf(valueRand));
         setPreviousValue(valueRand);
-        Log.d("val modif prvs Val",String.valueOf(previousValue));
+        //Log.d("val modif prvs Val",String.valueOf(previousValue));
 
 
         String img = "cage" + valueRand;       //Rename to catch img name

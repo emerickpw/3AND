@@ -1,16 +1,25 @@
 package com.example.emeri.a3and;
 
 import android.content.Intent;
+import java.util.concurrent.TimeUnit;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class Interface_Play_ChronoMod2 extends AppCompatActivity {
 
     private int level = 1;
+    TextView countDown;
+
+    private static final String FORMAT = "%02d:%02d";
+
+    int seconds , minutes;
+
 
     //Getter/Setters
 
@@ -27,7 +36,10 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.interface_play_chronomod2);
+        setContentView(R.layout.interface_play_chronomod);
+
+        //Define the Countdown TextView
+        countDown=(TextView)findViewById(R.id.textViewCountDown);
 
         //Init and display lvl 1 on create
 
@@ -44,8 +56,7 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
         mImageView.setImageResource(getResources().getIdentifier(img, "mipmap", getPackageName()));
 
         //Run chronometer
-        Timer timer = new Timer();
-        timer.RunTimerNormal();
+        RunTimerChronoMod();
 
 
         //Connect The Random button for redirecting to the activity interface_play activity
@@ -85,4 +96,29 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
     }
 
 
+    //Countdown Method
+    public void RunTimerChronoMod() {
+        //Set time duration in millisenconds
+        new CountDownTimer(120000,1000){       //Duration 120seconds, refresh every seconds
+            @Override
+
+            public void onTick(long millisUntilFinished) {
+                countDown.setText(""+String.format(FORMAT,
+                        //TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+            }
+
+
+            @Override
+
+            //Define what happen when time's up
+            public void onFinish() {
+                Intent intent = new Intent(Interface_Play_ChronoMod2.this, SaveParty.class);
+                startActivity(intent);
+            }
+        }.start();
+    }
 }

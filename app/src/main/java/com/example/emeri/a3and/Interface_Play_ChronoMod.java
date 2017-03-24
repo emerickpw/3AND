@@ -1,16 +1,30 @@
 package com.example.emeri.a3and;
 
 import android.content.Intent;
+
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class Interface_Play_ChronoMod extends AppCompatActivity {
 
     private int level = 1;
+    TextView countDown;
+
+    CountDownTimer CDt;
+
+    private static final String FORMAT = "%02d:%02d";
+
+    int seconds, minutes;
+
 
     //Getter/Setters
 
@@ -29,6 +43,9 @@ public class Interface_Play_ChronoMod extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.interface_play_chronomod);
 
+        //Define the Countdown TextView
+        countDown = (TextView) findViewById(R.id.textViewCountDown);
+
         //Init and display lvl 1 on create
 
         setTitle("Find Nicolas - Level " + level); //init Level 1
@@ -44,8 +61,7 @@ public class Interface_Play_ChronoMod extends AppCompatActivity {
         mImageView.setImageResource(getResources().getIdentifier(img, "mipmap", getPackageName()));
 
         //Run chronometer
-        Timer timer = new Timer();
-        timer.RunTimerNormal();
+        RunTimerChronoMod();
 
 
         //Connect The Random button for redirecting to the activity interface_play activity
@@ -62,6 +78,9 @@ public class Interface_Play_ChronoMod extends AppCompatActivity {
                 int newLevel = level + 1;
                 setLevel(newLevel);
                 setTitle("Find Nicolas - Level " + level);
+                //Reinitialiser le countdown en relancant la methode avec le nouveau lvl
+
+                RunTimerChronoMod();
 
             }
         });
@@ -84,4 +103,37 @@ public class Interface_Play_ChronoMod extends AppCompatActivity {
         //Nothing here, button disabled
     }
 
+
+    //Countdown Method
+    public void RunTimerChronoMod() {
+
+
+        //Check if a Countdown already exist, and delete if necessary
+        if (CDt != null){
+            CDt.cancel();
+        }
+        //Set time duration in millisenconds
+        CDt = new CountDownTimer((10 * 1000 - (getLevel() - 1) * 1000), 1000) {       //Duration 300seconds in beginning, refresh every seconds
+
+            @Override
+
+            public void onTick(long millisUntilFinished) {
+                countDown.setText("" + String.format(FORMAT,
+                        //TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+            }
+
+            //Define what happen when time's up
+            @Override
+            public void onFinish() {
+                Intent intent = new Intent(Interface_Play_ChronoMod.this, SaveParty.class);
+                startActivity(intent);
+            }
+
+
+        }.start();
+    }
 }
