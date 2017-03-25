@@ -1,20 +1,21 @@
 package com.example.emeri.a3and;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+
+import com.example.emeri.a3and.TouchScreen.TouchImageView;
 
 public class Interface_Play extends AppCompatActivity {
 
     private int level = 1;
-    long baseTimer;
 
     //Getter/Setters
 
@@ -38,14 +39,27 @@ public class Interface_Play extends AppCompatActivity {
         setTitle("Find Nicolas - Level " + level); //init Level 1
 
         //create object of RandomValue to define a random picture
-        RandomValue value = new RandomValue();
-        final String img = value.randomPicture();
+        //RandomValue value = new RandomValue();
+        //final String img = value.randomPicture();
 
         // Get the ImageView
-        final ImageView mImageView = (ImageView) findViewById(R.id.imageViewInterface);
+        //final ImageView mImageView = (ImageView) findViewById(R.id.imageViewInterface);
+
+        //Create ImageView to be controlled
+        final TouchImageView imageControlled = new TouchImageView(this);
+        imageControlled.setImageResource(getResources().getIdentifier("cage5", "mipmap", getPackageName()));
+        imageControlled.setMaxZoom(5f);
+
+        LinearLayout lL = (LinearLayout) findViewById(R.id.normal_game_layout);
+        imageControlled.setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.TOP;
+        lp.height = 1500;
+        imageControlled.setLayoutParams(lp);
+        lL.addView(imageControlled,0);
 
         //Set the image
-        mImageView.setImageResource(getResources().getIdentifier(img, "mipmap", getPackageName()));
+        //mImageView.setImageResource(getResources().getIdentifier(img, "mipmap", getPackageName()));
 
         //Run chronometer
         RunTimerNormal();
@@ -58,29 +72,32 @@ public class Interface_Play extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //If level <11, lvl up
-                if (getLevel() < 10) {
+                if (getLevel() <10)
+                {
                     setTitle("Find Nicolas - Level " + level);
                 }
                 //Else if lvl == 10, exit the game
-                else {
-                    //Definition du temps
-                    long TempsReel = SystemClock.elapsedRealtime() - baseTimer;
+                else{
                     //lancer l'activité de Sauvegarde et passage des parametres
                     Intent intent = new Intent(Interface_Play.this, SaveParty.class);
-                    intent.putExtra("Level", getLevel());
+                    intent.putExtra("Level",getLevel());
                     intent.putExtra("GameMode", "Normal");
-                    intent.putExtra("Chronometer", (R.id.chronoMetre));
-                    intent.putExtra("Chronometer", TempsReel);
 
                     startActivity(intent);
                 }
 
+                //Initialize ImageView controller
+
+
                 //Display random picture
-                String newImg = randomValue.randomPicture();
-                mImageView.setImageResource(getResources().getIdentifier(newImg, "mipmap", getPackageName()));
+                //String newImg = randomValue.randomPicture();
+                //mImageView.setImageResource(getResources().getIdentifier(newImg, "mipmap", getPackageName()));
+
+
                 //up level
                 int newLevel = level + 1;
                 setLevel(newLevel);
+
             }
         });
 
@@ -91,8 +108,7 @@ public class Interface_Play extends AppCompatActivity {
             public void onClick(View v) {
                 //lancer l'activité de Sauvegarde et passage des parametres
                 Intent intent = new Intent(Interface_Play.this, SaveParty.class);
-                intent.putExtra("Level", getLevel());
-                intent.putExtra("GameMode", "Normal");
+                intent.putExtra("Level",getLevel());
                 startActivity(intent);
             }
         });
@@ -105,11 +121,12 @@ public class Interface_Play extends AppCompatActivity {
     }
 
     public void RunTimerNormal() {
-        final Chronometer focus;
+        Chronometer focus;
         focus = (Chronometer) findViewById(R.id.chronoMetre);
         focus.setBase(SystemClock.elapsedRealtime());
-        baseTimer = focus.getBase();
+
         focus.start();
     }
+
 
 }
