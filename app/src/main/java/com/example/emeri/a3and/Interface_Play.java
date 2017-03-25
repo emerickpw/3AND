@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Interface_Play extends AppCompatActivity {
 
     private int level = 1;
+    long baseTimer;
 
     //Getter/Setters
 
@@ -56,16 +58,19 @@ public class Interface_Play extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //If level <11, lvl up
-                if (getLevel() <10)
-                {
+                if (getLevel() < 10) {
                     setTitle("Find Nicolas - Level " + level);
                 }
                 //Else if lvl == 10, exit the game
-                else{
+                else {
+                    //Definition du temps
+                    long TempsReel = SystemClock.elapsedRealtime() - baseTimer;
                     //lancer l'activité de Sauvegarde et passage des parametres
                     Intent intent = new Intent(Interface_Play.this, SaveParty.class);
-                    intent.putExtra("Level",getLevel());
+                    intent.putExtra("Level", getLevel());
                     intent.putExtra("GameMode", "Normal");
+                    intent.putExtra("Chronometer", (R.id.chronoMetre));
+                    intent.putExtra("Chronometer", TempsReel);
 
                     startActivity(intent);
                 }
@@ -86,7 +91,8 @@ public class Interface_Play extends AppCompatActivity {
             public void onClick(View v) {
                 //lancer l'activité de Sauvegarde et passage des parametres
                 Intent intent = new Intent(Interface_Play.this, SaveParty.class);
-                intent.putExtra("Level",getLevel());
+                intent.putExtra("Level", getLevel());
+                intent.putExtra("GameMode", "Normal");
                 startActivity(intent);
             }
         });
@@ -99,12 +105,11 @@ public class Interface_Play extends AppCompatActivity {
     }
 
     public void RunTimerNormal() {
-        Chronometer focus;
+        final Chronometer focus;
         focus = (Chronometer) findViewById(R.id.chronoMetre);
         focus.setBase(SystemClock.elapsedRealtime());
-
+        baseTimer = focus.getBase();
         focus.start();
     }
-
 
 }
