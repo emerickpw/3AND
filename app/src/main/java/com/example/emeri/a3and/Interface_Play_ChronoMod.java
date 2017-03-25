@@ -109,7 +109,7 @@ public class Interface_Play_ChronoMod extends AppCompatActivity {
 
 
         //Check if a Countdown already exist, and delete if necessary
-        if (CDt != null){
+        if (CDt != null) {
             CDt.cancel();
         }
         //Set time duration in millisenconds
@@ -127,9 +127,12 @@ public class Interface_Play_ChronoMod extends AppCompatActivity {
             }
 
             //Define what happen when time's up
+            // Passage des parametres sur l'activité de sauvegarde, puis lancement de l'activité de sauvegarde
             @Override
             public void onFinish() {
                 Intent intent = new Intent(Interface_Play_ChronoMod.this, SaveParty.class);
+                intent.putExtra("Level",getLevel());
+                intent.putExtra("GameMode", "ChronoMod");
                 startActivity(intent);
             }
 

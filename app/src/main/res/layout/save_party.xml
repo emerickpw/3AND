@@ -21,18 +21,36 @@
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editText2"
+            android:text="Save"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
-            android:text="Save" />
+            android:layout_marginBottom="33dp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="35dp"
             android:text="Enter your name" />
+
+        <TextView
+            android:id="@+id/textViewGameMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewLevel"
+            android:layout_centerHorizontal="true"
+            android:text="GameMode :" />
+
+        <TextView
+            android:id="@+id/textViewLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26dp"
+            android:text="Your Level :" />
+
     </RelativeLayout>
 </LinearLayout>

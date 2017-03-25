@@ -56,13 +56,17 @@ public class Interface_Play extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //If level <11, lvl up
-                if (getLevel() <11)
+                if (getLevel() <10)
                 {
                     setTitle("Find Nicolas - Level " + level);
                 }
-                //Else if lvl > 11, exit the game
+                //Else if lvl == 10, exit the game
                 else{
+                    //lancer l'activité de Sauvegarde et passage des parametres
                     Intent intent = new Intent(Interface_Play.this, SaveParty.class);
+                    intent.putExtra("Level",getLevel());
+                    intent.putExtra("GameMode", "Normal");
+
                     startActivity(intent);
                 }
 
@@ -80,8 +84,9 @@ public class Interface_Play extends AppCompatActivity {
         myButtonWin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //lancer l'activité de Sauvegarde
+                //lancer l'activité de Sauvegarde et passage des parametres
                 Intent intent = new Intent(Interface_Play.this, SaveParty.class);
+                intent.putExtra("Level",getLevel());
                 startActivity(intent);
             }
         });

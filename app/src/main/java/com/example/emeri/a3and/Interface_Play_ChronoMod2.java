@@ -115,8 +115,11 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
             @Override
 
             //Define what happen when time's up
+            // Passage des parametres sur l'activité de sauvegarde, puis lancement de l'activité de sauvegarde
             public void onFinish() {
                 Intent intent = new Intent(Interface_Play_ChronoMod2.this, SaveParty.class);
+                intent.putExtra("Level",getLevel());
+                intent.putExtra("GameMode", "ChronoMod");
                 startActivity(intent);
             }
         }.start();
