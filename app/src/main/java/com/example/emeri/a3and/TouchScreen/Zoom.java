@@ -1,4 +1,4 @@
-package com.example.emeri.a3and;
+package com.example.emeri.a3and.TouchScreen;
 
 /**
  * Created by emeri on 23/03/2017.
