@@ -30,13 +30,13 @@ public class TouchImageView extends AppCompatImageView {
     float[] m;
     int viewWidth, viewHeight;
 
-    static final int CLICK = 5;
+    static final int CLICK = 10;
 
     float saveScale = 1f;
 
     //VALIDATING VARIABLES
 
-    public float[] cagePosition = new  float[]{400f,450f,760f,800f};
+    public float[] cagePosition = new  float[]{350f,450f,680f,750f};
     public  float[] cageRelativePosition = new float[]{0f,0f};
     int[] cageMoved = new int[]{0,0,0,0};
 
@@ -82,7 +82,7 @@ public class TouchImageView extends AppCompatImageView {
                 mScaleDetector.onTouchEvent(event);
 
                 PointF curr = new PointF(event.getX(), event.getY());
-
+                Log.d(TAG, "onTouch: X : " + curr.x +"/ Y :" + curr.y);
                 Log.d(TAG, "CagePosition :   " + cagePosition[0] +"/" + cagePosition[2]);
 
                 switch (event.getAction()) {

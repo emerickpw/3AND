@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
 
+
     <Chronometer
         android:id="@+id/chronoMetre"
         android:layout_width="match_parent"
@@ -19,6 +20,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="bottom"/>
+    <Button
+        android:id="@+id/buttonRandom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:onClick="randomPicture()"
+        android:text="Next"
+        android:layout_above="@+id/chronoMetre"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </LinearLayout>

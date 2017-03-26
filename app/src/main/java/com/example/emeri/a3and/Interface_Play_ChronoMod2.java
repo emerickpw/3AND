@@ -1,15 +1,20 @@
 package com.example.emeri.a3and;
 
 import android.content.Intent;
-import java.util.concurrent.TimeUnit;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.emeri.a3and.TouchScreen.TouchImageView;
+
+import java.util.concurrent.TimeUnit;
 
 public class Interface_Play_ChronoMod2 extends AppCompatActivity {
 
@@ -45,16 +50,32 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
 
         setTitle("Find Nicolas - Level " + level); //init Level 1
 
-        //create object of RandomValue to define a random picture
-        RandomValue value = new RandomValue();
-        final String img = value.randomPicture();
 
-        // Get the ImageView
-        final ImageView mImageView = (ImageView) findViewById(R.id.imageViewInterface);
+        //Create ImageView to be controlled
+        final TouchImageView imageControlled = new TouchImageView(this);
+        imageControlled.setImageResource(getResources().getIdentifier("cage1", "mipmap", getPackageName()));
+        imageControlled.setMaxZoom(6f);
 
-        //Set the image
-        mImageView.setImageResource(getResources().getIdentifier(img, "mipmap", getPackageName()));
+        //Create the LynearLayout where the ImageView will be displayed
+        LinearLayout lL = (LinearLayout) findViewById(R.id.normal_game_layout);
+        imageControlled.setVisibility(View.VISIBLE);
 
+
+        //Layout parameter to fetch in the ContentView
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.TOP;
+        lp.height = 1320;
+        imageControlled.setLayoutParams(lp);
+
+        //Add interactive listener
+        imageControlled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Cage FOUNDED !! " , Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Display image
+        lL.addView(imageControlled,0);
         //Run chronometer
         RunTimerChronoMod();
 
@@ -68,7 +89,7 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
             public void onClick(View v) {
                 //lancer la methode random Picture
                 String newImg = randomValue.randomPicture();
-                mImageView.setImageResource(getResources().getIdentifier(newImg, "mipmap", getPackageName()));
+                imageControlled.setImageResource(getResources().getIdentifier(newImg, "mipmap", getPackageName()));
                 //up level
                 int newLevel = level + 1;
                 setLevel(newLevel);
@@ -77,16 +98,6 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
             }
         });
 
-        //Connect The Win button for redirecting to the activity interface_play activity
-        final Button myButtonWin = (Button) findViewById(R.id.buttonVictoire);
-        myButtonWin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //lancer l'activité de Sauvegarde
-                Intent intent = new Intent(Interface_Play_ChronoMod2.this, SaveParty.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
