@@ -99,7 +99,7 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
     //Countdown Method
     public void RunTimerChronoMod() {
         //Set time duration in millisenconds
-        new CountDownTimer(120000,1000){       //Duration 120seconds, refresh every seconds
+        new CountDownTimer(10*1000,1000){       //Duration 120seconds, refresh every seconds
             @Override
 
             public void onTick(long millisUntilFinished) {
@@ -119,7 +119,7 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
             public void onFinish() {
                 Intent intent = new Intent(Interface_Play_ChronoMod2.this, SaveParty.class);
                 intent.putExtra("Level",getLevel());
-                intent.putExtra("GameMode", "ChronoMod");
+                intent.putExtra("GameMode", "ChronoMod2");
                 startActivity(intent);
             }
         }.start();

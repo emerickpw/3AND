@@ -8,7 +8,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editTextName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -21,10 +21,10 @@
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="33dp" />
+            android:layout_marginBottom="33dp"
+            android:text="Save" />
 
         <TextView
             android:id="@+id/textViewName"
@@ -39,18 +39,29 @@
             android:id="@+id/textViewGameMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:text="GameMode :"
             android:layout_below="@+id/textViewLevel"
-            android:layout_centerHorizontal="true"
-            android:text="GameMode :" />
+            android:layout_alignLeft="@+id/textViewLevel"
+            android:layout_alignStart="@+id/textViewLevel" />
 
         <TextView
             android:id="@+id/textViewLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editText2"
+            android:layout_below="@+id/editTextName"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="26dp"
             android:text="Your Level :" />
+
+        <TextView
+            android:id="@+id/textViewTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewGameMode"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34dp"
+            android:text="Timer" />
 
     </RelativeLayout>
 </LinearLayout>
