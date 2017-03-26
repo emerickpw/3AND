@@ -22,6 +22,7 @@ public class Interface_Play extends AppCompatActivity {
 
     private int level = 1;
     private Handler mHandler = new Handler();
+    long TempBase;
 
     //Getter/Setters
 
@@ -103,10 +104,13 @@ public class Interface_Play extends AppCompatActivity {
                 }
                 //Else if lvl == 10, exit the game
                 else{
+                    //Definition du temps
+                    long tempsReel = SystemClock.elapsedRealtime() - TempBase;
                     //lancer l'activité de Sauvegarde et passage des parametres
                     Intent intent = new Intent(Interface_Play.this, SaveParty.class);
                     intent.putExtra("Level",getLevel());
                     intent.putExtra("GameMode", "Normal");
+                    intent.putExtra("Chronometer", tempsReel);
 
                     startActivity(intent);
                 }
@@ -137,7 +141,7 @@ public class Interface_Play extends AppCompatActivity {
         Chronometer focus;
         focus = (Chronometer) findViewById(R.id.chronoMetre);
         focus.setBase(SystemClock.elapsedRealtime());
-
+        TempBase = focus.getBase();
         focus.start();
     }
 
