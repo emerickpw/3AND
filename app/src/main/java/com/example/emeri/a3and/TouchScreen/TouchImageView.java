@@ -1,4 +1,5 @@
 package com.example.emeri.a3and.TouchScreen;
+
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.PointF;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+
+import static android.content.ContentValues.TAG;
 
 public class TouchImageView extends AppCompatImageView {
     Matrix matrix;
@@ -27,9 +30,15 @@ public class TouchImageView extends AppCompatImageView {
     float[] m;
     int viewWidth, viewHeight;
 
-    static final int CLICK = 3;
+    static final int CLICK = 5;
 
     float saveScale = 1f;
+
+    //VALIDATING VARIABLES
+
+    public float[] cagePosition = new  float[]{400f,450f,760f,800f};
+    public  float[] cageRelativePosition = new float[]{0f,0f};
+    int[] cageMoved = new int[]{0,0,0,0};
 
     protected float origWidth, origHeight;
 
@@ -74,6 +83,8 @@ public class TouchImageView extends AppCompatImageView {
 
                 PointF curr = new PointF(event.getX(), event.getY());
 
+                Log.d(TAG, "CagePosition :   " + cagePosition[0] +"/" + cagePosition[2]);
+
                 switch (event.getAction()) {
 
                     case MotionEvent.ACTION_DOWN:
@@ -100,9 +111,27 @@ public class TouchImageView extends AppCompatImageView {
 
                             matrix.postTranslate(fixTransX, fixTransY);
 
-                            fixTrans();
 
+                            fixTrans();
+                            //Log.d(TAG, "CageDRAGGED :  cageDraggedX  " +cageDragged[1] + "  cageDraggedY " + cageDragged[2]);
                             last.set(curr.x, curr.y);
+
+                            //Redefine cage position on Drag
+
+                            if(cageMoved[1] == 1) {
+
+                                cagePosition[0] += fixTransX;
+
+                                cagePosition[1] = cagePosition[0] + 50;
+                            }
+                            if(cageMoved[2] == 1) {
+
+                                cagePosition[2] += fixTransY;
+
+                                cagePosition[3] = cagePosition[2] + 50;
+                            }
+
+
 
                         }
 
@@ -116,9 +145,14 @@ public class TouchImageView extends AppCompatImageView {
 
                         int yDiff = (int) Math.abs(curr.y - start.y);
 
-                        if (xDiff < CLICK && yDiff < CLICK)
+                        if (xDiff < CLICK && yDiff < CLICK){
+                            if( (curr.x > cagePosition[0] && curr.x <cagePosition[1]) && (curr.y > cagePosition[2] && curr.y <cagePosition[3]) ){
+                                performClick();
+                            }
+                        }
 
-                            performClick();
+
+
 
                         break;
 
@@ -132,7 +166,7 @@ public class TouchImageView extends AppCompatImageView {
 
                 setImageMatrix(matrix);
 
-                invalidate();
+                //invalidate();
 
                 return true; // indicate event was handled  
 
@@ -181,14 +215,22 @@ public class TouchImageView extends AppCompatImageView {
 
             }
 
-            if (origWidth * saveScale <= viewWidth || origHeight * saveScale <= viewHeight)
+            if (origWidth * saveScale <= viewWidth || origHeight * saveScale <= viewHeight) {
 
                 matrix.postScale(mScaleFactor, mScaleFactor, viewWidth / 2, viewHeight / 2);
-
-            else
-
+                Log.d(TAG, "onScale: IF YES");
+                //cageMoved[4] = 1;
+                cagePosition[0] *= mScaleFactor;
+                cagePosition[1] = cagePosition[0]+50;
+                cagePosition[2] *= mScaleFactor;
+                cagePosition[3] = cagePosition[2]+50;
+            }
+            else {
+                
                 matrix.postScale(mScaleFactor, mScaleFactor, detector.getFocusX(), detector.getFocusY());
-
+                Log.d(TAG, "onScale: ELSE");
+                //cageMoved[4] = 0;
+            }
             fixTrans();
 
             return true;
@@ -209,9 +251,30 @@ public class TouchImageView extends AppCompatImageView {
 
         float fixTransY = getFixTrans(transY, viewHeight, origHeight * saveScale);
 
-        if (fixTransX != 0 || fixTransY != 0)
+        Log.d(TAG, "fixTrans: " + fixTransX + "/ "  + fixTransY);
+
+        if (fixTransX != 0 || fixTransY != 0) {
 
             matrix.postTranslate(fixTransX, fixTransY);
+
+            if(fixTransX != 0f){
+
+                cageMoved[1]= 0;
+            }
+
+            if(fixTransY != 0f){
+
+                cageMoved[2]= 0;
+            }
+        }
+        else {
+
+            cageMoved[0]= 1;
+
+            cageMoved[1]= 1;
+
+            cageMoved[2]= 1;
+        }
 
     }
 
@@ -268,9 +331,9 @@ public class TouchImageView extends AppCompatImageView {
 
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
 
-        //  
-        // Rescales image on rotation  
-        //  
+        //
+        // Rescales image on rotation
+        //
         if (oldMeasuredHeight == viewWidth && oldMeasuredHeight == viewHeight
 
                 || viewWidth == 0 || viewHeight == 0)
@@ -283,7 +346,7 @@ public class TouchImageView extends AppCompatImageView {
 
         if (saveScale == 1) {
 
-            //Fit to screen.  
+            //Fit to screen.
 
             float scale;
 
@@ -307,7 +370,7 @@ public class TouchImageView extends AppCompatImageView {
 
             matrix.setScale(scale, scale);
 
-            // Center the image  
+            // Center the image
 
             float redundantYSpace = (float) viewHeight - (scale * (float) bmHeight);
 

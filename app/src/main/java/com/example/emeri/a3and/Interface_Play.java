@@ -1,15 +1,14 @@
 package com.example.emeri.a3and;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.emeri.a3and.TouchScreen.TouchImageView;
 
@@ -47,16 +46,24 @@ public class Interface_Play extends AppCompatActivity {
 
         //Create ImageView to be controlled
         final TouchImageView imageControlled = new TouchImageView(this);
-        imageControlled.setImageResource(getResources().getIdentifier("cage5", "mipmap", getPackageName()));
-        imageControlled.setMaxZoom(5f);
+        imageControlled.setImageResource(getResources().getIdentifier("cage1", "mipmap", getPackageName()));
+        imageControlled.setMaxZoom(6f);
 
         LinearLayout lL = (LinearLayout) findViewById(R.id.normal_game_layout);
         imageControlled.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.TOP;
-        lp.height = 1500;
+        lp.height = 1440;
         imageControlled.setLayoutParams(lp);
+        imageControlled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Cage FOUNDED !! " , Toast.LENGTH_SHORT).show();
+            }
+        });
         lL.addView(imageControlled,0);
+
+
 
         //Set the image
         //mImageView.setImageResource(getResources().getIdentifier(img, "mipmap", getPackageName()));
@@ -65,53 +72,53 @@ public class Interface_Play extends AppCompatActivity {
         RunTimerNormal();
 
         //Connect The Random button for redirecting to the activity interface_play activity
-        final Button myButtonRandom = (Button) findViewById(R.id.buttonRandom);
-        myButtonRandom.setOnClickListener(new View.OnClickListener() {
-            RandomValue randomValue = new RandomValue();
-
-            @Override
-            public void onClick(View v) {
-                //If level <11, lvl up
-                if (getLevel() <10)
-                {
-                    setTitle("Find Nicolas - Level " + level);
-                }
-                //Else if lvl == 10, exit the game
-                else{
-                    //lancer l'activité de Sauvegarde et passage des parametres
-                    Intent intent = new Intent(Interface_Play.this, SaveParty.class);
-                    intent.putExtra("Level",getLevel());
-                    intent.putExtra("GameMode", "Normal");
-
-                    startActivity(intent);
-                }
-
-                //Initialize ImageView controller
-
-
-                //Display random picture
-                //String newImg = randomValue.randomPicture();
-                //mImageView.setImageResource(getResources().getIdentifier(newImg, "mipmap", getPackageName()));
-
-
-                //up level
-                int newLevel = level + 1;
-                setLevel(newLevel);
-
-            }
-        });
+//        final Button myButtonRandom = (Button) findViewById(R.id.buttonRandom);
+//        myButtonRandom.setOnClickListener(new View.OnClickListener() {
+//            RandomValue randomValue = new RandomValue();
+//
+//            @Override
+//            public void onClick(View v) {
+//                //If level <11, lvl up
+//                if (getLevel() <10)
+//                {
+//                    setTitle("Find Nicolas - Level " + level);
+//                }
+//                //Else if lvl == 10, exit the game
+//                else{
+//                    //lancer l'activité de Sauvegarde et passage des parametres
+//                    Intent intent = new Intent(Interface_Play.this, SaveParty.class);
+//                    intent.putExtra("Level",getLevel());
+//                    intent.putExtra("GameMode", "Normal");
+//
+//                    startActivity(intent);
+//                }
+//
+//                //Initialize ImageView controller
+//
+//
+//                //Display random picture
+//                //String newImg = randomValue.randomPicture();
+//                //mImageView.setImageResource(getResources().getIdentifier(newImg, "mipmap", getPackageName()));
+//
+//
+//                //up level
+//                int newLevel = level + 1;
+//                setLevel(newLevel);
+//
+//            }
+//        });
 
         //Connect The Win button for redirecting to the activity interface_play activity
-        final Button myButtonWin = (Button) findViewById(R.id.buttonVictoire);
-        myButtonWin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //lancer l'activité de Sauvegarde et passage des parametres
-                Intent intent = new Intent(Interface_Play.this, SaveParty.class);
-                intent.putExtra("Level",getLevel());
-                startActivity(intent);
-            }
-        });
+//        final Button myButtonWin = (Button) findViewById(R.id.buttonVictoire);
+//        myButtonWin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //lancer l'activité de Sauvegarde et passage des parametres
+//                Intent intent = new Intent(Interface_Play.this, SaveParty.class);
+//                intent.putExtra("Level",getLevel());
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
