@@ -1,11 +1,10 @@
-package com.example.emeri.a3and;
+package com.example.emeri.a3and.Activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+
+import com.example.emeri.a3and.DataBase.DatabaseHelper;
+import com.example.emeri.a3and.R;
 
 public class NormalHoF extends AppCompatActivity {
 

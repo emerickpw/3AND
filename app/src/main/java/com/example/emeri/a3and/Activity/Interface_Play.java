@@ -1,7 +1,8 @@
-package com.example.emeri.a3and;
+package com.example.emeri.a3and.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,11 +13,15 @@ import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.emeri.a3and.DataBase.SaveParty;
+import com.example.emeri.a3and.R;
+import com.example.emeri.a3and.TouchScreen.RandomValue;
 import com.example.emeri.a3and.TouchScreen.TouchImageView;
 
 public class Interface_Play extends AppCompatActivity {
 
     private int level = 1;
+    private Handler mHandler = new Handler();
 
     //Getter/Setters
 
@@ -66,6 +71,16 @@ public class Interface_Play extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Cage FOUNDED !! " , Toast.LENGTH_SHORT).show();
             }
         });
+
+        imageControlled.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getApplicationContext(),"Not here !! " , Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+
+        });
         //Display image
         lL.addView(imageControlled,0);
 
@@ -95,8 +110,6 @@ public class Interface_Play extends AppCompatActivity {
 
                     startActivity(intent);
                 }
-
-                //Initialize ImageView controller
 
 
                 //Display random picture

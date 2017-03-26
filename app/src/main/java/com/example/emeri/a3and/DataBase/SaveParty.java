@@ -1,4 +1,4 @@
-package com.example.emeri.a3and;
+package com.example.emeri.a3and.DataBase;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.emeri.a3and.Activity.HallOfFame;
+import com.example.emeri.a3and.R;
 
 public class SaveParty extends AppCompatActivity {
 

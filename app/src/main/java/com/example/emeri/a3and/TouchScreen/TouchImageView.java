@@ -35,7 +35,7 @@ public class TouchImageView extends AppCompatImageView {
     float saveScale = 1f;
 
     //VALIDATING VARIABLES
-
+    long ValidationFail = 2000;
     public float[] cagePosition = new  float[]{350f,450f,680f,750f};
     public  float[] cageRelativePosition = new float[]{0f,0f};
     int[] cageMoved = new int[]{0,0,0,0};
@@ -148,6 +148,8 @@ public class TouchImageView extends AppCompatImageView {
                         if (xDiff < CLICK && yDiff < CLICK){
                             if( (curr.x > cagePosition[0] && curr.x <cagePosition[1]) && (curr.y > cagePosition[2] && curr.y <cagePosition[3]) ){
                                 performClick();
+                            }else{
+                                performLongClick();
                             }
                         }
 

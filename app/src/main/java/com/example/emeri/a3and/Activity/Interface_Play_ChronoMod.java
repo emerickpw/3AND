@@ -1,4 +1,4 @@
-package com.example.emeri.a3and;
+package com.example.emeri.a3and.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,18 +12,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.emeri.a3and.R;
+import com.example.emeri.a3and.TouchScreen.RandomValue;
+import com.example.emeri.a3and.DataBase.SaveParty;
 import com.example.emeri.a3and.TouchScreen.TouchImageView;
 
 import java.util.concurrent.TimeUnit;
 
-public class Interface_Play_ChronoMod2 extends AppCompatActivity {
+public class Interface_Play_ChronoMod extends AppCompatActivity {
 
     private int level = 1;
     TextView countDown;
 
+    CountDownTimer CDt;
+
     private static final String FORMAT = "%02d:%02d";
 
-    int seconds , minutes;
+    int seconds, minutes;
 
 
     //Getter/Setters
@@ -44,7 +49,7 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
         setContentView(R.layout.interface_play_chronomod);
 
         //Define the Countdown TextView
-        countDown=(TextView)findViewById(R.id.textViewCountDown);
+        countDown = (TextView) findViewById(R.id.textViewCountDown);
 
         //Init and display lvl 1 on create
 
@@ -74,6 +79,15 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Cage FOUNDED !! " , Toast.LENGTH_SHORT).show();
             }
         });
+        imageControlled.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getApplicationContext(),"Not here !! " , Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+
+        });
         //Display image
         lL.addView(imageControlled,0);
         //Run chronometer
@@ -94,9 +108,13 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
                 int newLevel = level + 1;
                 setLevel(newLevel);
                 setTitle("Find Nicolas - Level " + level);
+                //Reinitialiser le countdown en relancant la methode avec le nouveau lvl
+
+                RunTimerChronoMod();
 
             }
         });
+
 
 
     }
@@ -109,12 +127,19 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
 
     //Countdown Method
     public void RunTimerChronoMod() {
+
+
+        //Check if a Countdown already exist, and delete if necessary
+        if (CDt != null) {
+            CDt.cancel();
+        }
         //Set time duration in millisenconds
-        new CountDownTimer(10*1000,1000){       //Duration 120seconds, refresh every seconds
+        CDt = new CountDownTimer((10 * 1000 - (getLevel() - 1) * 1000), 1000) {       //Duration 300seconds in beginning, refresh every seconds
+
             @Override
 
             public void onTick(long millisUntilFinished) {
-                countDown.setText(""+String.format(FORMAT,
+                countDown.setText("" + String.format(FORMAT,
                         //TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
                                 TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
@@ -122,17 +147,17 @@ public class Interface_Play_ChronoMod2 extends AppCompatActivity {
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
             }
 
-
-            @Override
-
             //Define what happen when time's up
             // Passage des parametres sur l'activité de sauvegarde, puis lancement de l'activité de sauvegarde
+            @Override
             public void onFinish() {
-                Intent intent = new Intent(Interface_Play_ChronoMod2.this, SaveParty.class);
+                Intent intent = new Intent(Interface_Play_ChronoMod.this, SaveParty.class);
                 intent.putExtra("Level",getLevel());
-                intent.putExtra("GameMode", "ChronoMod2");
+                intent.putExtra("GameMode", "ChronoMod");
                 startActivity(intent);
             }
+
+
         }.start();
     }
 }

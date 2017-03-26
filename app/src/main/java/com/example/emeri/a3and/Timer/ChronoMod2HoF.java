@@ -1,11 +1,9 @@
-package com.example.emeri.a3and;
+package com.example.emeri.a3and.Timer;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.support.v7.app.AppCompatActivity;
+
+import com.example.emeri.a3and.R;
 
 public class ChronoMod2HoF extends AppCompatActivity {
 

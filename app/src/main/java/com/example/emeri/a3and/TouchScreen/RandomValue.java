@@ -1,6 +1,5 @@
-package com.example.emeri.a3and;
+package com.example.emeri.a3and.TouchScreen;
 
-import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 

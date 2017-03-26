@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".StartParty"
+        <activity android:name=".DataBase.StartParty"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".HallOfFame"
+        <activity android:name=".Activity.HallOfFame"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Interface_Play"
+        <activity android:name=".Activity.Interface_Play"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Interface_Play_ChronoMod"
+        <activity android:name=".Activity.Interface_Play_ChronoMod"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Interface_Play_ChronoMod2"
+        <activity android:name=".Activity.Interface_Play_ChronoMod2"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,7 +59,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SaveParty"
+        <activity android:name=".DataBase.SaveParty"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,7 +67,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".NormalHoF"
+        <activity android:name=".Activity.NormalHoF"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,7 +76,7 @@
         </activity>
 
 
-        <activity android:name=".ChronoModHoF"
+        <activity android:name=".Timer.ChronoModHoF"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -84,7 +84,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ChronoMod2HoF"
+        <activity android:name=".Timer.ChronoMod2HoF"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
